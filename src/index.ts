@@ -1,10 +1,7 @@
-import vlog from "./visual-log";
+import * as vlog from "./visual-log";
 
-vlog("a", {
-    type: "arrow",
-    data: [
-        [0, 0, 0],
-        [1, 0, 1]
-    ],
-    color: "red"
-});
+vlog.id("a");
+vlog.color("red");
+vlog.arrow([0, 0, 0], [3, 0, 3]);
+
+vlog.lineSegment([1, 0, 0], [4, 0, 1]);

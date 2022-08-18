@@ -1,6 +1,6 @@
 import { Vector3, WebGLRenderer, Scene, PerspectiveCamera, AxesHelper, ArrowHelper, Object3D } from "three";
 
-type Type = "arrow" | "lineSegment";
+const state = { id: "", color: "red" };
 
 type Vec3 = [number, number, number] | { x: number; y: number; z: number };
 
@@ -10,21 +10,6 @@ const is012 = (v: Vec3): v is [number, number, number] =>
 const toVector3 = (v: Vec3) => {
     if (is012(v)) return new Vector3().fromArray(v);
     return new Vector3(v.x, v.y, v.z);
-};
-
-type Obj = {
-    type: Type;
-    data: Vec3[];
-    color: string;
-};
-
-const getObj = (obj: Obj) => {
-    const from = toVector3(obj.data[0]);
-    const to = toVector3(obj.data[1]);
-    const dir = to.clone().sub(from).normalize();
-    if (obj.type === "arrow") return new ArrowHelper(dir, from, from.distanceTo(to), obj.color);
-    if (obj.type === "lineSegment") return new ArrowHelper(dir, from, from.distanceTo(to), obj.color, 0, 0);
-    return new Object3D();
 };
 
 type VLog = {
@@ -63,17 +48,30 @@ const drawVLog = (id: string) => {
 
 let shouldRedraw = false;
 
-const log = (id: string, obj: Obj) => {
-    const vLog = vLogs[id] || createVLog();
-    vLogs[id] = vLog;
-    vLog.scene.add(getObj(obj));
-    shouldRedraw = true;
-};
-
 window.setInterval(() => {
     if (!shouldRedraw) return;
     shouldRedraw = false;
     Object.keys(vLogs).forEach(drawVLog);
 }, 1000);
 
-export default log;
+export const id = (s: string) => (state.id = s);
+
+export const color = (s: string) => (state.color = s);
+
+const addObj = (obj: Object3D) => {
+    if (!vLogs[state.id]) vLogs[state.id] = createVLog();
+    vLogs[state.id].scene.add(obj);
+    shouldRedraw = true;
+};
+
+const getDir = (from: Vector3, to: Vector3) => to.clone().sub(from).normalize();
+
+const addArrow = (from: Vector3, to: Vector3) =>
+    addObj(new ArrowHelper(getDir(from, to), from, from.distanceTo(to), state.color));
+
+export const arrow = (from: Vec3, to: Vec3) => addArrow(toVector3(from), toVector3(to));
+
+const addLineSegment = (from: Vector3, to: Vector3) =>
+    addObj(new ArrowHelper(getDir(from, to), from, from.distanceTo(to), state.color, 0, 0));
+
+export const lineSegment = (from: Vec3, to: Vec3) => addLineSegment(toVector3(from), toVector3(to));
