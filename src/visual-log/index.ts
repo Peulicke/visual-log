@@ -5,7 +5,9 @@ type Type = "arrow" | "lineSegment";
 type Vec3 = [number, number, number] | { x: number; y: number; z: number };
 
 const is012 = (v: Vec3): v is [number, number, number] =>
-    v.hasOwnProperty(0) && v.hasOwnProperty(1) && v.hasOwnProperty(2);
+    Object.prototype.hasOwnProperty.call(v, 0) &&
+    Object.prototype.hasOwnProperty.call(v, 1) &&
+    Object.prototype.hasOwnProperty.call(v, 2);
 
 const toVector3 = (v: Vec3) => {
     if (is012(v)) return new Vector3().fromArray(v);
