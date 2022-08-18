@@ -1,0 +1,14 @@
+{
+    "name": "visual-log",
+    "version": "0.0.2",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "three": "^0.143.0"
+    },
+    "devDependencies": {
+        "@types/three": "^0.143.1"
+    }
+}

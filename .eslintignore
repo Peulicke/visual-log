@@ -1,0 +1,4 @@
+build
+app/__generated__
+functions/lib
+ts-mock-firebase
