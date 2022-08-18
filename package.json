@@ -1,9 +1,10 @@
 {
     "name": "visual-log",
-    "version": "0.0.4",
+    "version": "0.0.6",
     "main": "dist/index.js",
     "scripts": {
         "build": "tsc -p tsconfig.dist.json",
+        "deploy": "tsc -p tsconfig.dist.json && npm publish",
         "start": "react-scripts start"
     },
     "dependencies": {
