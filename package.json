@@ -1,6 +1,6 @@
 {
     "name": "visual-log",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "main": "dist/index.js",
     "scripts": {
         "build": "tsc -p tsconfig.dist.json",
@@ -28,5 +28,9 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Peulicke/visual-log.git"
     }
 }
