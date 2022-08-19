@@ -26,4 +26,4 @@ vlog.lineSegment([1, 0, 0], [4, 0, 1]);
 
 This outputs the following image to the console:
 
-![alt text](img.png)
+![output](img.png)
